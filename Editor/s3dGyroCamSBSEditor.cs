@@ -11,6 +11,9 @@ using System.Collections;
 [UnityEditor.CustomEditor(typeof(s3dGyroCamSBS))]
 public class s3dGyroCamSBSEditor : Editor
 {
+
+    private s3dGyroCamSBS target;
+
     public override void OnInspectorGUI()
     {
         EditorGUILayout.BeginVertical("box", new GUILayoutOption[] {});
