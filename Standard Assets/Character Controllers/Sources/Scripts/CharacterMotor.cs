@@ -39,17 +39,17 @@ public class CharacterMotorMovement : object
     public Vector3 lastHitPoint;
     public CharacterMotorMovement()
     {
-        this.maxForwardSpeed = 10f;
-        this.maxSidewaysSpeed = 10f;
-        this.maxBackwardsSpeed = 10f;
-        this.slopeSpeedMultiplier = new AnimationCurve(new Keyframe[] {new Keyframe(-90, 1), new Keyframe(0, 1), new Keyframe(90, 0)});
-        this.maxGroundAcceleration = 30f;
-        this.maxAirAcceleration = 20f;
-        this.gravity = 10f;
-        this.maxFallSpeed = 20f;
-        this.frameVelocity = Vector3.zero;
-        this.hitPoint = Vector3.zero;
-        this.lastHitPoint = new Vector3(Mathf.Infinity, 0, 0);
+        maxForwardSpeed = 10f;
+        maxSidewaysSpeed = 10f;
+        maxBackwardsSpeed = 10f;
+        slopeSpeedMultiplier = new AnimationCurve(new Keyframe[] {new Keyframe(-90, 1), new Keyframe(0, 1), new Keyframe(90, 0)});
+        maxGroundAcceleration = 30f;
+        maxAirAcceleration = 20f;
+        gravity = 10f;
+        maxFallSpeed = 20f;
+        frameVelocity = Vector3.zero;
+        hitPoint = Vector3.zero;
+        lastHitPoint = new Vector3(Mathf.Infinity, 0, 0);
     }
 
 }
@@ -94,12 +94,12 @@ public class CharacterMotorJumping : object
     public Vector3 jumpDir;
     public CharacterMotorJumping()
     {
-        this.enabled = true;
-        this.baseHeight = 1f;
-        this.extraHeight = 4.1f;
-        this.steepPerpAmount = 0.5f;
-        this.lastButtonDownTime = -100;
-        this.jumpDir = Vector3.up;
+        enabled = true;
+        baseHeight = 1f;
+        extraHeight = 4.1f;
+        steepPerpAmount = 0.5f;
+        lastButtonDownTime = -100;
+        jumpDir = Vector3.up;
     }
 
 }
@@ -128,8 +128,8 @@ public class CharacterMotorMovingPlatform : object
     public bool newPlatform;
     public CharacterMotorMovingPlatform()
     {
-        this.enabled = true;
-        this.movementTransfer = MovementTransferOnJump.PermaTransfer;
+        enabled = true;
+        movementTransfer = MovementTransferOnJump.PermaTransfer;
     }
 
 }
@@ -148,10 +148,10 @@ public class CharacterMotorSliding : object
     public float speedControl;
     public CharacterMotorSliding()
     {
-        this.enabled = true;
-        this.slidingSpeed = 15;
-        this.sidewaysControl = 1f;
-        this.speedControl = 0.4f;
+        enabled = true;
+        slidingSpeed = 15;
+        sidewaysControl = 1f;
+        speedControl = 0.4f;
     }
 
 }
@@ -245,181 +245,181 @@ public partial class CharacterMotor : MonoBehaviour
     private CharacterController controller;
     public virtual void Awake()
     {
-        this.controller = (CharacterController) this.GetComponent(typeof(CharacterController));
-        this.tr = this.transform;
+        controller = (CharacterController) GetComponent(typeof(CharacterController));
+        tr = transform;
     }
 
     private void UpdateFunction()
     {
-        Vector3 velocity = this.movement.velocity;
-        velocity = this.ApplyInputVelocityChange(velocity);
-        velocity = this.ApplyGravityAndJumping(velocity);
+        Vector3 velocity = movement.velocity;
+        velocity = ApplyInputVelocityChange(velocity);
+        velocity = ApplyGravityAndJumping(velocity);
         Vector3 moveDistance = Vector3.zero;
-        if (this.MoveWithPlatform())
+        if (MoveWithPlatform())
         {
-            Vector3 newGlobalPoint = this.movingPlatform.activePlatform.TransformPoint(this.movingPlatform.activeLocalPoint);
-            moveDistance = newGlobalPoint - this.movingPlatform.activeGlobalPoint;
+            Vector3 newGlobalPoint = movingPlatform.activePlatform.TransformPoint(movingPlatform.activeLocalPoint);
+            moveDistance = newGlobalPoint - movingPlatform.activeGlobalPoint;
             if (moveDistance != Vector3.zero)
             {
-                this.controller.Move(moveDistance);
+                controller.Move(moveDistance);
             }
-            Quaternion newGlobalRotation = this.movingPlatform.activePlatform.rotation * this.movingPlatform.activeLocalRotation;
-            Quaternion rotationDiff = newGlobalRotation * Quaternion.Inverse(this.movingPlatform.activeGlobalRotation);
+            Quaternion newGlobalRotation = movingPlatform.activePlatform.rotation * movingPlatform.activeLocalRotation;
+            Quaternion rotationDiff = newGlobalRotation * Quaternion.Inverse(movingPlatform.activeGlobalRotation);
             float yRotation = rotationDiff.eulerAngles.y;
             if (yRotation != 0)
             {
-                this.tr.Rotate(0, yRotation, 0);
+                tr.Rotate(0, yRotation, 0);
             }
         }
-        Vector3 lastPosition = this.tr.position;
+        Vector3 lastPosition = tr.position;
         Vector3 currentMovementOffset = velocity * Time.deltaTime;
-        float pushDownOffset = Mathf.Max(this.controller.stepOffset, new Vector3(currentMovementOffset.x, 0, currentMovementOffset.z).magnitude);
-        if (this.grounded)
+        float pushDownOffset = Mathf.Max(controller.stepOffset, new Vector3(currentMovementOffset.x, 0, currentMovementOffset.z).magnitude);
+        if (grounded)
         {
             currentMovementOffset = currentMovementOffset - (pushDownOffset * Vector3.up);
         }
-        this.movingPlatform.hitPlatform = null;
-        this.groundNormal = Vector3.zero;
-        this.movement.collisionFlags = this.controller.Move(currentMovementOffset);
-        this.movement.lastHitPoint = this.movement.hitPoint;
-        this.lastGroundNormal = this.groundNormal;
-        if (this.movingPlatform.enabled && (this.movingPlatform.activePlatform != this.movingPlatform.hitPlatform))
+        movingPlatform.hitPlatform = null;
+        groundNormal = Vector3.zero;
+        movement.collisionFlags = controller.Move(currentMovementOffset);
+        movement.lastHitPoint = movement.hitPoint;
+        lastGroundNormal = groundNormal;
+        if (movingPlatform.enabled && (movingPlatform.activePlatform != movingPlatform.hitPlatform))
         {
-            if (this.movingPlatform.hitPlatform != null)
+            if (movingPlatform.hitPlatform != null)
             {
-                this.movingPlatform.activePlatform = this.movingPlatform.hitPlatform;
-                this.movingPlatform.lastMatrix = this.movingPlatform.hitPlatform.localToWorldMatrix;
-                this.movingPlatform.newPlatform = true;
+                movingPlatform.activePlatform = movingPlatform.hitPlatform;
+                movingPlatform.lastMatrix = movingPlatform.hitPlatform.localToWorldMatrix;
+                movingPlatform.newPlatform = true;
             }
         }
         Vector3 oldHVelocity = new Vector3(velocity.x, 0, velocity.z);
-        this.movement.velocity = (this.tr.position - lastPosition) / Time.deltaTime;
-        Vector3 newHVelocity = new Vector3(this.movement.velocity.x, 0, this.movement.velocity.z);
+        movement.velocity = (tr.position - lastPosition) / Time.deltaTime;
+        Vector3 newHVelocity = new Vector3(movement.velocity.x, 0, movement.velocity.z);
         if (oldHVelocity == Vector3.zero)
         {
-            this.movement.velocity = new Vector3(0, this.movement.velocity.y, 0);
+            movement.velocity = new Vector3(0, movement.velocity.y, 0);
         }
         else
         {
             float projectedNewVelocity = Vector3.Dot(newHVelocity, oldHVelocity) / oldHVelocity.sqrMagnitude;
-            this.movement.velocity = (oldHVelocity * Mathf.Clamp01(projectedNewVelocity)) + (this.movement.velocity.y * Vector3.up);
+            movement.velocity = (oldHVelocity * Mathf.Clamp01(projectedNewVelocity)) + (movement.velocity.y * Vector3.up);
         }
-        if (this.movement.velocity.y < (velocity.y - 0.001f))
+        if (movement.velocity.y < (velocity.y - 0.001f))
         {
-            if (this.movement.velocity.y < 0)
+            if (movement.velocity.y < 0)
             {
-                this.movement.velocity.y = velocity.y;
+                movement.velocity.y = velocity.y;
             }
             else
             {
-                this.jumping.holdingJumpButton = false;
+                jumping.holdingJumpButton = false;
             }
         }
-        if (this.grounded && !this.IsGroundedTest())
+        if (grounded && !IsGroundedTest())
         {
-            this.grounded = false;
-            if (this.movingPlatform.enabled && ((this.movingPlatform.movementTransfer == MovementTransferOnJump.InitTransfer) || (this.movingPlatform.movementTransfer == MovementTransferOnJump.PermaTransfer)))
+            grounded = false;
+            if (movingPlatform.enabled && ((movingPlatform.movementTransfer == MovementTransferOnJump.InitTransfer) || (movingPlatform.movementTransfer == MovementTransferOnJump.PermaTransfer)))
             {
-                this.movement.frameVelocity = this.movingPlatform.platformVelocity;
-                this.movement.velocity = this.movement.velocity + this.movingPlatform.platformVelocity;
+                movement.frameVelocity = movingPlatform.platformVelocity;
+                movement.velocity = movement.velocity + movingPlatform.platformVelocity;
             }
-            this.SendMessage("OnFall", SendMessageOptions.DontRequireReceiver);
-            this.tr.position = this.tr.position + (pushDownOffset * Vector3.up);
+            SendMessage("OnFall", SendMessageOptions.DontRequireReceiver);
+            tr.position = tr.position + (pushDownOffset * Vector3.up);
         }
         else
         {
-            if (!this.grounded && this.IsGroundedTest())
+            if (!grounded && IsGroundedTest())
             {
-                this.grounded = true;
-                this.jumping.jumping = false;
-                this.StartCoroutine(this.SubtractNewPlatformVelocity());
-                this.SendMessage("OnLand", SendMessageOptions.DontRequireReceiver);
+                grounded = true;
+                jumping.jumping = false;
+                StartCoroutine(SubtractNewPlatformVelocity());
+                SendMessage("OnLand", SendMessageOptions.DontRequireReceiver);
             }
         }
-        if (this.MoveWithPlatform())
+        if (MoveWithPlatform())
         {
-            this.movingPlatform.activeGlobalPoint = this.tr.position + (Vector3.up * ((this.controller.center.y - (this.controller.height * 0.5f)) + this.controller.radius));
-            this.movingPlatform.activeLocalPoint = this.movingPlatform.activePlatform.InverseTransformPoint(this.movingPlatform.activeGlobalPoint);
-            this.movingPlatform.activeGlobalRotation = this.tr.rotation;
-            this.movingPlatform.activeLocalRotation = Quaternion.Inverse(this.movingPlatform.activePlatform.rotation) * this.movingPlatform.activeGlobalRotation;
+            movingPlatform.activeGlobalPoint = tr.position + (Vector3.up * ((controller.center.y - (controller.height * 0.5f)) + controller.radius));
+            movingPlatform.activeLocalPoint = movingPlatform.activePlatform.InverseTransformPoint(movingPlatform.activeGlobalPoint);
+            movingPlatform.activeGlobalRotation = tr.rotation;
+            movingPlatform.activeLocalRotation = Quaternion.Inverse(movingPlatform.activePlatform.rotation) * movingPlatform.activeGlobalRotation;
         }
     }
 
     public virtual void FixedUpdate()
     {
-        if (this.movingPlatform.enabled)
+        if (movingPlatform.enabled)
         {
-            if (this.movingPlatform.activePlatform != null)
+            if (movingPlatform.activePlatform != null)
             {
-                if (!this.movingPlatform.newPlatform)
+                if (!movingPlatform.newPlatform)
                 {
-                    Vector3 lastVelocity = this.movingPlatform.platformVelocity;
-                    this.movingPlatform.platformVelocity = (this.movingPlatform.activePlatform.localToWorldMatrix.MultiplyPoint3x4(this.movingPlatform.activeLocalPoint) - this.movingPlatform.lastMatrix.MultiplyPoint3x4(this.movingPlatform.activeLocalPoint)) / Time.deltaTime;
+                    Vector3 lastVelocity = movingPlatform.platformVelocity;
+                    movingPlatform.platformVelocity = (movingPlatform.activePlatform.localToWorldMatrix.MultiplyPoint3x4(movingPlatform.activeLocalPoint) - movingPlatform.lastMatrix.MultiplyPoint3x4(movingPlatform.activeLocalPoint)) / Time.deltaTime;
                 }
-                this.movingPlatform.lastMatrix = this.movingPlatform.activePlatform.localToWorldMatrix;
-                this.movingPlatform.newPlatform = false;
+                movingPlatform.lastMatrix = movingPlatform.activePlatform.localToWorldMatrix;
+                movingPlatform.newPlatform = false;
             }
             else
             {
-                this.movingPlatform.platformVelocity = Vector3.zero;
+                movingPlatform.platformVelocity = Vector3.zero;
             }
         }
-        if (this.useFixedUpdate)
+        if (useFixedUpdate)
         {
-            this.UpdateFunction();
+            UpdateFunction();
         }
     }
 
     public virtual void Update()
     {
-        if (!this.useFixedUpdate)
+        if (!useFixedUpdate)
         {
-            this.UpdateFunction();
+            UpdateFunction();
         }
     }
 
     private Vector3 ApplyInputVelocityChange(Vector3 velocity)
     {
         Vector3 desiredVelocity = default(Vector3);
-        if (!this.canControl)
+        if (!canControl)
         {
-            this.inputMoveDirection = Vector3.zero;
+            inputMoveDirection = Vector3.zero;
         }
-        if (this.grounded && this.TooSteep())
+        if (grounded && TooSteep())
         {
-            desiredVelocity = new Vector3(this.groundNormal.x, 0, this.groundNormal.z).normalized;
-            Vector3 projectedMoveDir = Vector3.Project(this.inputMoveDirection, desiredVelocity);
-            desiredVelocity = (desiredVelocity + (projectedMoveDir * this.sliding.speedControl)) + ((this.inputMoveDirection - projectedMoveDir) * this.sliding.sidewaysControl);
-            desiredVelocity = desiredVelocity * this.sliding.slidingSpeed;
+            desiredVelocity = new Vector3(groundNormal.x, 0, groundNormal.z).normalized;
+            Vector3 projectedMoveDir = Vector3.Project(inputMoveDirection, desiredVelocity);
+            desiredVelocity = (desiredVelocity + (projectedMoveDir * sliding.speedControl)) + ((inputMoveDirection - projectedMoveDir) * sliding.sidewaysControl);
+            desiredVelocity = desiredVelocity * sliding.slidingSpeed;
         }
         else
         {
-            desiredVelocity = this.GetDesiredHorizontalVelocity();
+            desiredVelocity = GetDesiredHorizontalVelocity();
         }
-        if (this.movingPlatform.enabled && (this.movingPlatform.movementTransfer == MovementTransferOnJump.PermaTransfer))
+        if (movingPlatform.enabled && (movingPlatform.movementTransfer == MovementTransferOnJump.PermaTransfer))
         {
-            desiredVelocity = desiredVelocity + this.movement.frameVelocity;
+            desiredVelocity = desiredVelocity + movement.frameVelocity;
             desiredVelocity.y = 0;
         }
-        if (this.grounded)
+        if (grounded)
         {
-            desiredVelocity = this.AdjustGroundVelocityToNormal(desiredVelocity, this.groundNormal);
+            desiredVelocity = AdjustGroundVelocityToNormal(desiredVelocity, groundNormal);
         }
         else
         {
             velocity.y = 0;
         }
-        float maxVelocityChange = this.GetMaxAcceleration(this.grounded) * Time.deltaTime;
+        float maxVelocityChange = GetMaxAcceleration(grounded) * Time.deltaTime;
         Vector3 velocityChangeVector = desiredVelocity - velocity;
         if (velocityChangeVector.sqrMagnitude > (maxVelocityChange * maxVelocityChange))
         {
             velocityChangeVector = velocityChangeVector.normalized * maxVelocityChange;
         }
-        if (this.grounded || this.canControl)
+        if (grounded || canControl)
         {
             velocity = velocity + velocityChangeVector;
         }
-        if (this.grounded)
+        if (grounded)
         {
             velocity.y = Mathf.Min(velocity.y, 0);
         }
@@ -428,60 +428,60 @@ public partial class CharacterMotor : MonoBehaviour
 
     private Vector3 ApplyGravityAndJumping(Vector3 velocity)
     {
-        if (!this.inputJump || !this.canControl)
+        if (!inputJump || !canControl)
         {
-            this.jumping.holdingJumpButton = false;
-            this.jumping.lastButtonDownTime = -100;
+            jumping.holdingJumpButton = false;
+            jumping.lastButtonDownTime = -100;
         }
-        if ((this.inputJump && (this.jumping.lastButtonDownTime < 0)) && this.canControl)
+        if ((inputJump && (jumping.lastButtonDownTime < 0)) && canControl)
         {
-            this.jumping.lastButtonDownTime = Time.time;
+            jumping.lastButtonDownTime = Time.time;
         }
-        if (this.grounded)
+        if (grounded)
         {
-            velocity.y = Mathf.Min(0, velocity.y) - (this.movement.gravity * Time.deltaTime);
+            velocity.y = Mathf.Min(0, velocity.y) - (movement.gravity * Time.deltaTime);
         }
         else
         {
-            velocity.y = this.movement.velocity.y - (this.movement.gravity * Time.deltaTime);
-            if (this.jumping.jumping && this.jumping.holdingJumpButton)
+            velocity.y = movement.velocity.y - (movement.gravity * Time.deltaTime);
+            if (jumping.jumping && jumping.holdingJumpButton)
             {
-                if (Time.time < (this.jumping.lastStartTime + (this.jumping.extraHeight / this.CalculateJumpVerticalSpeed(this.jumping.baseHeight))))
+                if (Time.time < (jumping.lastStartTime + (jumping.extraHeight / CalculateJumpVerticalSpeed(jumping.baseHeight))))
                 {
-                    velocity = velocity + ((this.jumping.jumpDir * this.movement.gravity) * Time.deltaTime);
+                    velocity = velocity + ((jumping.jumpDir * movement.gravity) * Time.deltaTime);
                 }
             }
-            velocity.y = Mathf.Max(velocity.y, -this.movement.maxFallSpeed);
+            velocity.y = Mathf.Max(velocity.y, -movement.maxFallSpeed);
         }
-        if (this.grounded)
+        if (grounded)
         {
-            if ((this.jumping.enabled && this.canControl) && ((Time.time - this.jumping.lastButtonDownTime) < 0.2f))
+            if ((jumping.enabled && canControl) && ((Time.time - jumping.lastButtonDownTime) < 0.2f))
             {
-                this.grounded = false;
-                this.jumping.jumping = true;
-                this.jumping.lastStartTime = Time.time;
-                this.jumping.lastButtonDownTime = -100;
-                this.jumping.holdingJumpButton = true;
-                if (this.TooSteep())
+                grounded = false;
+                jumping.jumping = true;
+                jumping.lastStartTime = Time.time;
+                jumping.lastButtonDownTime = -100;
+                jumping.holdingJumpButton = true;
+                if (TooSteep())
                 {
-                    this.jumping.jumpDir = Vector3.Slerp(Vector3.up, this.groundNormal, this.jumping.steepPerpAmount);
+                    jumping.jumpDir = Vector3.Slerp(Vector3.up, groundNormal, jumping.steepPerpAmount);
                 }
                 else
                 {
-                    this.jumping.jumpDir = Vector3.Slerp(Vector3.up, this.groundNormal, this.jumping.perpAmount);
+                    jumping.jumpDir = Vector3.Slerp(Vector3.up, groundNormal, jumping.perpAmount);
                 }
                 velocity.y = 0;
-                velocity = velocity + (this.jumping.jumpDir * this.CalculateJumpVerticalSpeed(this.jumping.baseHeight));
-                if (this.movingPlatform.enabled && ((this.movingPlatform.movementTransfer == MovementTransferOnJump.InitTransfer) || (this.movingPlatform.movementTransfer == MovementTransferOnJump.PermaTransfer)))
+                velocity = velocity + (jumping.jumpDir * CalculateJumpVerticalSpeed(jumping.baseHeight));
+                if (movingPlatform.enabled && ((movingPlatform.movementTransfer == MovementTransferOnJump.InitTransfer) || (movingPlatform.movementTransfer == MovementTransferOnJump.PermaTransfer)))
                 {
-                    this.movement.frameVelocity = this.movingPlatform.platformVelocity;
-                    velocity = velocity + this.movingPlatform.platformVelocity;
+                    movement.frameVelocity = movingPlatform.platformVelocity;
+                    velocity = velocity + movingPlatform.platformVelocity;
                 }
-                this.SendMessage("OnJump", SendMessageOptions.DontRequireReceiver);
+                SendMessage("OnJump", SendMessageOptions.DontRequireReceiver);
             }
             else
             {
-                this.jumping.holdingJumpButton = false;
+                jumping.holdingJumpButton = false;
             }
         }
         return velocity;
@@ -489,55 +489,55 @@ public partial class CharacterMotor : MonoBehaviour
 
     public virtual void OnControllerColliderHit(ControllerColliderHit hit)
     {
-        if (((hit.normal.y > 0) && (hit.normal.y > this.groundNormal.y)) && (hit.moveDirection.y < 0))
+        if (((hit.normal.y > 0) && (hit.normal.y > groundNormal.y)) && (hit.moveDirection.y < 0))
         {
-            if (((hit.point - this.movement.lastHitPoint).sqrMagnitude > 0.001f) || (this.lastGroundNormal == Vector3.zero))
+            if (((hit.point - movement.lastHitPoint).sqrMagnitude > 0.001f) || (lastGroundNormal == Vector3.zero))
             {
-                this.groundNormal = hit.normal;
+                groundNormal = hit.normal;
             }
             else
             {
-                this.groundNormal = this.lastGroundNormal;
+                groundNormal = lastGroundNormal;
             }
-            this.movingPlatform.hitPlatform = hit.collider.transform;
-            this.movement.hitPoint = hit.point;
-            this.movement.frameVelocity = Vector3.zero;
+            movingPlatform.hitPlatform = hit.collider.transform;
+            movement.hitPoint = hit.point;
+            movement.frameVelocity = Vector3.zero;
         }
     }
 
     private IEnumerator SubtractNewPlatformVelocity()
     {
-        if (this.movingPlatform.enabled && ((this.movingPlatform.movementTransfer == MovementTransferOnJump.InitTransfer) || (this.movingPlatform.movementTransfer == MovementTransferOnJump.PermaTransfer)))
+        if (movingPlatform.enabled && ((movingPlatform.movementTransfer == MovementTransferOnJump.InitTransfer) || (movingPlatform.movementTransfer == MovementTransferOnJump.PermaTransfer)))
         {
-            if (this.movingPlatform.newPlatform)
+            if (movingPlatform.newPlatform)
             {
-                Transform platform = this.movingPlatform.activePlatform;
+                Transform platform = movingPlatform.activePlatform;
                 yield return new WaitForFixedUpdate();
                 yield return new WaitForFixedUpdate();
-                if (this.grounded && (platform == this.movingPlatform.activePlatform))
+                if (grounded && (platform == movingPlatform.activePlatform))
                 {
                     yield return 1;
                 }
             }
-            this.movement.velocity = this.movement.velocity - this.movingPlatform.platformVelocity;
+            movement.velocity = movement.velocity - movingPlatform.platformVelocity;
         }
     }
 
     private bool MoveWithPlatform()
     {
-        return (this.movingPlatform.enabled && (this.grounded || (this.movingPlatform.movementTransfer == MovementTransferOnJump.PermaLocked))) && (this.movingPlatform.activePlatform != null);
+        return (movingPlatform.enabled && (grounded || (movingPlatform.movementTransfer == MovementTransferOnJump.PermaLocked))) && (movingPlatform.activePlatform != null);
     }
 
     private Vector3 GetDesiredHorizontalVelocity()
     {
-        Vector3 desiredLocalDirection = this.tr.InverseTransformDirection(this.inputMoveDirection);
-        float maxSpeed = this.MaxSpeedInDirection(desiredLocalDirection);
-        if (this.grounded)
+        Vector3 desiredLocalDirection = tr.InverseTransformDirection(inputMoveDirection);
+        float maxSpeed = MaxSpeedInDirection(desiredLocalDirection);
+        if (grounded)
         {
-            float movementSlopeAngle = Mathf.Asin(this.movement.velocity.normalized.y) * Mathf.Rad2Deg;
-            maxSpeed = maxSpeed * this.movement.slopeSpeedMultiplier.Evaluate(movementSlopeAngle);
+            float movementSlopeAngle = Mathf.Asin(movement.velocity.normalized.y) * Mathf.Rad2Deg;
+            maxSpeed = maxSpeed * movement.slopeSpeedMultiplier.Evaluate(movementSlopeAngle);
         }
-        return this.tr.TransformDirection(desiredLocalDirection * maxSpeed);
+        return tr.TransformDirection(desiredLocalDirection * maxSpeed);
     }
 
     private Vector3 AdjustGroundVelocityToNormal(Vector3 hVelocity, Vector3 groundNormal)
@@ -548,59 +548,59 @@ public partial class CharacterMotor : MonoBehaviour
 
     private bool IsGroundedTest()
     {
-        return this.groundNormal.y > 0.01f;
+        return groundNormal.y > 0.01f;
     }
 
     public virtual float GetMaxAcceleration(bool grounded)
     {
         if (grounded)
         {
-            return this.movement.maxGroundAcceleration;
+            return movement.maxGroundAcceleration;
         }
         else
         {
-            return this.movement.maxAirAcceleration;
+            return movement.maxAirAcceleration;
         }
     }
 
     public virtual float CalculateJumpVerticalSpeed(float targetJumpHeight)
     {
-        return Mathf.Sqrt((2 * targetJumpHeight) * this.movement.gravity);
+        return Mathf.Sqrt((2 * targetJumpHeight) * movement.gravity);
     }
 
     public virtual bool IsJumping()
     {
-        return this.jumping.jumping;
+        return jumping.jumping;
     }
 
     public virtual bool IsSliding()
     {
-        return (this.grounded && this.sliding.enabled) && this.TooSteep();
+        return (grounded && sliding.enabled) && TooSteep();
     }
 
     public virtual bool IsTouchingCeiling()
     {
-        return (this.movement.collisionFlags & CollisionFlags.CollidedAbove) != (CollisionFlags) 0;
+        return (movement.collisionFlags & CollisionFlags.CollidedAbove) != (CollisionFlags) 0;
     }
 
     public virtual bool IsGrounded()
     {
-        return this.grounded;
+        return grounded;
     }
 
     public virtual bool TooSteep()
     {
-        return this.groundNormal.y <= Mathf.Cos(this.controller.slopeLimit * Mathf.Deg2Rad);
+        return groundNormal.y <= Mathf.Cos(controller.slopeLimit * Mathf.Deg2Rad);
     }
 
     public virtual Vector3 GetDirection()
     {
-        return this.inputMoveDirection;
+        return inputMoveDirection;
     }
 
     public virtual void SetControllable(bool controllable)
     {
-        this.canControl = controllable;
+        canControl = controllable;
     }
 
     public virtual float MaxSpeedInDirection(Vector3 desiredMovementDirection)
@@ -611,33 +611,33 @@ public partial class CharacterMotor : MonoBehaviour
         }
         else
         {
-            float zAxisEllipseMultiplier = (desiredMovementDirection.z > 0 ? this.movement.maxForwardSpeed : this.movement.maxBackwardsSpeed) / this.movement.maxSidewaysSpeed;
+            float zAxisEllipseMultiplier = (desiredMovementDirection.z > 0 ? movement.maxForwardSpeed : movement.maxBackwardsSpeed) / movement.maxSidewaysSpeed;
             Vector3 temp = new Vector3(desiredMovementDirection.x, 0, desiredMovementDirection.z / zAxisEllipseMultiplier).normalized;
-            float length = new Vector3(temp.x, 0, temp.z * zAxisEllipseMultiplier).magnitude * this.movement.maxSidewaysSpeed;
+            float length = new Vector3(temp.x, 0, temp.z * zAxisEllipseMultiplier).magnitude * movement.maxSidewaysSpeed;
             return length;
         }
     }
 
     public virtual void SetVelocity(Vector3 velocity)
     {
-        this.grounded = false;
-        this.movement.velocity = velocity;
-        this.movement.frameVelocity = Vector3.zero;
-        this.SendMessage("OnExternalVelocity");
+        grounded = false;
+        movement.velocity = velocity;
+        movement.frameVelocity = Vector3.zero;
+        SendMessage("OnExternalVelocity");
     }
 
     public CharacterMotor()
     {
-        this.canControl = true;
-        this.useFixedUpdate = true;
-        this.inputMoveDirection = Vector3.zero;
-        this.movement = new CharacterMotorMovement();
-        this.jumping = new CharacterMotorJumping();
-        this.movingPlatform = new CharacterMotorMovingPlatform();
-        this.sliding = new CharacterMotorSliding();
-        this.grounded = true;
-        this.groundNormal = Vector3.zero;
-        this.lastGroundNormal = Vector3.zero;
+        canControl = true;
+        useFixedUpdate = true;
+        inputMoveDirection = Vector3.zero;
+        movement = new CharacterMotorMovement();
+        jumping = new CharacterMotorJumping();
+        movingPlatform = new CharacterMotorMovingPlatform();
+        sliding = new CharacterMotorSliding();
+        grounded = true;
+        groundNormal = Vector3.zero;
+        lastGroundNormal = Vector3.zero;
     }
 
 }

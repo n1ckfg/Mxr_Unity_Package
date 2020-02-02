@@ -52,88 +52,88 @@ public partial class s3dCameraSBS : MonoBehaviour
     private bool initialized;
     public virtual void Awake()
     {
-        this.initStereoCamera();
+        initStereoCamera();
     }
 
     public virtual void initStereoCamera()
     {
-        this.SetupCameras();
-        this.SetStereoFormat();
+        SetupCameras();
+        SetStereoFormat();
     }
 
     public virtual void SetupCameras()
     {
-        Transform lcam = this.transform.Find("leftCam"); // check if we've already created a leftCam
+        Transform lcam = transform.Find("leftCam"); // check if we've already created a leftCam
         if (lcam)
         {
-            this.leftCam = lcam.gameObject;
-            this.leftCam.GetComponent<Camera>().CopyFrom(this.GetComponent<Camera>());
+            leftCam = lcam.gameObject;
+            leftCam.GetComponent<Camera>().CopyFrom(GetComponent<Camera>());
         }
         else
         {
-            this.leftCam = new GameObject("leftCam", new System.Type[] {typeof(Camera)});
-            this.leftCam.AddComponent(typeof(GUILayer));
-            this.leftCam.GetComponent<Camera>().CopyFrom(this.GetComponent<Camera>());
-            this.leftCam.transform.parent = this.transform;
+            leftCam = new GameObject("leftCam", new System.Type[] {typeof(Camera)});
+            leftCam.AddComponent(typeof(GUILayer));
+            leftCam.GetComponent<Camera>().CopyFrom(GetComponent<Camera>());
+            leftCam.transform.parent = transform;
         }
-        Transform rcam = this.transform.Find("rightCam"); // check if we've already created a rightCam
+        Transform rcam = transform.Find("rightCam"); // check if we've already created a rightCam
         if (rcam)
         {
-            this.rightCam = rcam.gameObject;
-            this.rightCam.GetComponent<Camera>().CopyFrom(this.GetComponent<Camera>());
+            rightCam = rcam.gameObject;
+            rightCam.GetComponent<Camera>().CopyFrom(GetComponent<Camera>());
         }
         else
         {
-            this.rightCam = new GameObject("rightCam", new System.Type[] {typeof(Camera)});
-            this.rightCam.AddComponent(typeof(GUILayer));
-            this.rightCam.GetComponent<Camera>().CopyFrom(this.GetComponent<Camera>());
-            this.rightCam.transform.parent = this.transform;
+            rightCam = new GameObject("rightCam", new System.Type[] {typeof(Camera)});
+            rightCam.AddComponent(typeof(GUILayer));
+            rightCam.GetComponent<Camera>().CopyFrom(GetComponent<Camera>());
+            rightCam.transform.parent = transform;
         }
-        Transform mcam = this.transform.Find("maskCam"); // check if we've already created a maskCam
+        Transform mcam = transform.Find("maskCam"); // check if we've already created a maskCam
         if (mcam)
         {
-            this.maskCam = mcam.gameObject;
+            maskCam = mcam.gameObject;
         }
         else
         {
-            this.maskCam = new GameObject("maskCam", new System.Type[] {typeof(Camera)});
-            this.maskCam.AddComponent(typeof(GUILayer));
-            this.maskCam.GetComponent<Camera>().CopyFrom(this.GetComponent<Camera>());
-            this.maskCam.transform.parent = this.transform;
+            maskCam = new GameObject("maskCam", new System.Type[] {typeof(Camera)});
+            maskCam.AddComponent(typeof(GUILayer));
+            maskCam.GetComponent<Camera>().CopyFrom(GetComponent<Camera>());
+            maskCam.transform.parent = transform;
         }
-        this.GetComponent<Camera>().depth = -2; // rendering order (back to front): Main Camera/maskCam/leftCam/rightCam
-        this.maskCam.GetComponent<Camera>().depth = this.GetComponent<Camera>().depth + 1;
-        this.leftCam.GetComponent<Camera>().depth = this.GetComponent<Camera>().depth + 2;
-        this.rightCam.GetComponent<Camera>().depth = this.GetComponent<Camera>().depth + 3;
-        this.maskCam.GetComponent<Camera>().cullingMask = 0; // nothing shows in mask layer
-        this.maskCam.GetComponent<Camera>().clearFlags = CameraClearFlags.SolidColor;
-        this.maskCam.GetComponent<Camera>().backgroundColor = Color.black;
+        GetComponent<Camera>().depth = -2; // rendering order (back to front): Main Camera/maskCam/leftCam/rightCam
+        maskCam.GetComponent<Camera>().depth = GetComponent<Camera>().depth + 1;
+        leftCam.GetComponent<Camera>().depth = GetComponent<Camera>().depth + 2;
+        rightCam.GetComponent<Camera>().depth = GetComponent<Camera>().depth + 3;
+        maskCam.GetComponent<Camera>().cullingMask = 0; // nothing shows in mask layer
+        maskCam.GetComponent<Camera>().clearFlags = CameraClearFlags.SolidColor;
+        maskCam.GetComponent<Camera>().backgroundColor = Color.black;
     }
 
     public virtual void SetStereoFormat()
     {
-        if (!this.usePhoneMask)
+        if (!usePhoneMask)
         {
-            this.leftCam.GetComponent<Camera>().rect = new Rect(0, 0, 0.5f, 1);
-            this.rightCam.GetComponent<Camera>().rect = new Rect(0.5f, 0, 0.5f, 1);
+            leftCam.GetComponent<Camera>().rect = new Rect(0, 0, 0.5f, 1);
+            rightCam.GetComponent<Camera>().rect = new Rect(0.5f, 0, 0.5f, 1);
         }
         else
         {
-            this.leftCam.GetComponent<Camera>().rect = this.Vector4toRect(this.leftViewRect);
-            this.rightCam.GetComponent<Camera>().rect = this.Vector4toRect(this.rightViewRect);
+            leftCam.GetComponent<Camera>().rect = Vector4toRect(leftViewRect);
+            rightCam.GetComponent<Camera>().rect = Vector4toRect(rightViewRect);
         }
-        this.leftViewRect = this.RectToVector4(this.leftCam.GetComponent<Camera>().rect);
-        this.rightViewRect = this.RectToVector4(this.rightCam.GetComponent<Camera>().rect);
-        this.fixCameraAspect();
-        this.maskCam.GetComponent<Camera>().enabled = this.usePhoneMask;
+        leftViewRect = RectToVector4(leftCam.GetComponent<Camera>().rect);
+        rightViewRect = RectToVector4(rightCam.GetComponent<Camera>().rect);
+        fixCameraAspect();
+        maskCam.GetComponent<Camera>().enabled = usePhoneMask;
     }
 
     public virtual void fixCameraAspect()
     {
-        this.GetComponent<Camera>().ResetAspect();
-        this.GetComponent<Camera>().aspect = this.GetComponent<Camera>().aspect * ((this.leftCam.GetComponent<Camera>().rect.width * 2) / this.leftCam.GetComponent<Camera>().rect.height);
-        this.leftCam.GetComponent<Camera>().aspect = this.GetComponent<Camera>().aspect;
-        this.rightCam.GetComponent<Camera>().aspect = this.GetComponent<Camera>().aspect;
+        GetComponent<Camera>().ResetAspect();
+        GetComponent<Camera>().aspect = GetComponent<Camera>().aspect * ((leftCam.GetComponent<Camera>().rect.width * 2) / leftCam.GetComponent<Camera>().rect.height);
+        leftCam.GetComponent<Camera>().aspect = GetComponent<Camera>().aspect;
+        rightCam.GetComponent<Camera>().aspect = GetComponent<Camera>().aspect;
     }
 
     public virtual Rect Vector4toRect(Vector4 v)
@@ -152,67 +152,67 @@ public partial class s3dCameraSBS : MonoBehaviour
     {
         if (UnityEditor.EditorApplication.isPlaying)
         {
-            this.GetComponent<Camera>().enabled = false;
+            GetComponent<Camera>().enabled = false;
         }
         else
         {
-            this.GetComponent<Camera>().enabled = true; // need camera enabled when in edit mode
+            GetComponent<Camera>().enabled = true; // need camera enabled when in edit mode
         }
         if (Application.isPlaying)
         {
-            if (!this.initialized)
+            if (!initialized)
             {
-                this.initialized = true;
+                initialized = true;
             }
         }
         else
         {
-            this.initialized = false;
-            this.SetStereoFormat();
+            initialized = false;
+            SetStereoFormat();
         }
-        this.UpdateView();
+        UpdateView();
     }
 
     public virtual void UpdateView()
     {
-        switch (this.cameraSelect)
+        switch (cameraSelect)
         {
             case cams_3D.LeftRight:
-                this.leftCam.transform.position = this.transform.position + this.transform.TransformDirection(-this.interaxial / 2000f, 0, 0);
-                this.rightCam.transform.position = this.transform.position + this.transform.TransformDirection(this.interaxial / 2000f, 0, 0);
+                leftCam.transform.position = transform.position + transform.TransformDirection(-interaxial / 2000f, 0, 0);
+                rightCam.transform.position = transform.position + transform.TransformDirection(interaxial / 2000f, 0, 0);
                 break;
             case cams_3D.LeftOnly:
-                this.leftCam.transform.position = this.transform.position + this.transform.TransformDirection(-this.interaxial / 2000f, 0, 0);
-                this.rightCam.transform.position = this.transform.position + this.transform.TransformDirection(-this.interaxial / 2000f, 0, 0);
+                leftCam.transform.position = transform.position + transform.TransformDirection(-interaxial / 2000f, 0, 0);
+                rightCam.transform.position = transform.position + transform.TransformDirection(-interaxial / 2000f, 0, 0);
                 break;
             case cams_3D.RightOnly:
-                this.leftCam.transform.position = this.transform.position + this.transform.TransformDirection(this.interaxial / 2000f, 0, 0);
-                this.rightCam.transform.position = this.transform.position + this.transform.TransformDirection(this.interaxial / 2000f, 0, 0);
+                leftCam.transform.position = transform.position + transform.TransformDirection(interaxial / 2000f, 0, 0);
+                rightCam.transform.position = transform.position + transform.TransformDirection(interaxial / 2000f, 0, 0);
                 break;
             case cams_3D.RightLeft:
-                this.leftCam.transform.position = this.transform.position + this.transform.TransformDirection(this.interaxial / 2000f, 0, 0);
-                this.rightCam.transform.position = this.transform.position + this.transform.TransformDirection(-this.interaxial / 2000f, 0, 0);
+                leftCam.transform.position = transform.position + transform.TransformDirection(interaxial / 2000f, 0, 0);
+                rightCam.transform.position = transform.position + transform.TransformDirection(-interaxial / 2000f, 0, 0);
                 break;
         }
-        this.leftCam.transform.rotation = this.transform.rotation;
-        this.rightCam.transform.rotation = this.transform.rotation;
-        switch (this.cameraSelect)
+        leftCam.transform.rotation = transform.rotation;
+        rightCam.transform.rotation = transform.rotation;
+        switch (cameraSelect)
         {
             case cams_3D.LeftRight:
-                this.leftCam.GetComponent<Camera>().projectionMatrix = this.setProjectionMatrix(true);
-                this.rightCam.GetComponent<Camera>().projectionMatrix = this.setProjectionMatrix(false);
+                leftCam.GetComponent<Camera>().projectionMatrix = setProjectionMatrix(true);
+                rightCam.GetComponent<Camera>().projectionMatrix = setProjectionMatrix(false);
                 break;
             case cams_3D.LeftOnly:
-                this.leftCam.GetComponent<Camera>().projectionMatrix = this.setProjectionMatrix(true);
-                this.rightCam.GetComponent<Camera>().projectionMatrix = this.setProjectionMatrix(true);
+                leftCam.GetComponent<Camera>().projectionMatrix = setProjectionMatrix(true);
+                rightCam.GetComponent<Camera>().projectionMatrix = setProjectionMatrix(true);
                 break;
             case cams_3D.RightOnly:
-                this.leftCam.GetComponent<Camera>().projectionMatrix = this.setProjectionMatrix(false);
-                this.rightCam.GetComponent<Camera>().projectionMatrix = this.setProjectionMatrix(false);
+                leftCam.GetComponent<Camera>().projectionMatrix = setProjectionMatrix(false);
+                rightCam.GetComponent<Camera>().projectionMatrix = setProjectionMatrix(false);
                 break;
             case cams_3D.RightLeft:
-                this.leftCam.GetComponent<Camera>().projectionMatrix = this.setProjectionMatrix(false);
-                this.rightCam.GetComponent<Camera>().projectionMatrix = this.setProjectionMatrix(true);
+                leftCam.GetComponent<Camera>().projectionMatrix = setProjectionMatrix(false);
+                rightCam.GetComponent<Camera>().projectionMatrix = setProjectionMatrix(true);
                 break;
         }
     }
@@ -224,25 +224,25 @@ public partial class s3dCameraSBS : MonoBehaviour
         float a = 0.0f;
         float b = 0.0f;
         float FOVrad = 0.0f;
-        float tempAspect = this.GetComponent<Camera>().aspect;
-        FOVrad = (this.GetComponent<Camera>().fieldOfView / 180f) * Mathf.PI;
-        if (!this.sideBySideSqueezed)
+        float tempAspect = GetComponent<Camera>().aspect;
+        FOVrad = (GetComponent<Camera>().fieldOfView / 180f) * Mathf.PI;
+        if (!sideBySideSqueezed)
         {
             tempAspect = tempAspect / 2; // if side by side unsqueezed, double width
         }
-        a = this.GetComponent<Camera>().nearClipPlane * Mathf.Tan(FOVrad * 0.5f);
-        b = this.GetComponent<Camera>().nearClipPlane / this.zeroPrlxDist;
+        a = GetComponent<Camera>().nearClipPlane * Mathf.Tan(FOVrad * 0.5f);
+        b = GetComponent<Camera>().nearClipPlane / zeroPrlxDist;
         if (isLeftCam)
         {
-            left = (((-tempAspect * a) + ((this.interaxial / 2000f) * b)) + (this.H_I_T / 100)) + (this.offAxisFrustum / 100);
-            right = (((tempAspect * a) + ((this.interaxial / 2000f) * b)) + (this.H_I_T / 100)) + (this.offAxisFrustum / 100);
+            left = (((-tempAspect * a) + ((interaxial / 2000f) * b)) + (H_I_T / 100)) + (offAxisFrustum / 100);
+            right = (((tempAspect * a) + ((interaxial / 2000f) * b)) + (H_I_T / 100)) + (offAxisFrustum / 100);
         }
         else
         {
-            left = (((-tempAspect * a) - ((this.interaxial / 2000f) * b)) - (this.H_I_T / 100)) + (this.offAxisFrustum / 100);
-            right = (((tempAspect * a) - ((this.interaxial / 2000f) * b)) - (this.H_I_T / 100)) + (this.offAxisFrustum / 100);
+            left = (((-tempAspect * a) - ((interaxial / 2000f) * b)) - (H_I_T / 100)) + (offAxisFrustum / 100);
+            right = (((tempAspect * a) - ((interaxial / 2000f) * b)) - (H_I_T / 100)) + (offAxisFrustum / 100);
         }
-        return this.PerspectiveOffCenter(left, right, -a, a, this.GetComponent<Camera>().nearClipPlane, this.GetComponent<Camera>().farClipPlane);
+        return PerspectiveOffCenter(left, right, -a, a, GetComponent<Camera>().nearClipPlane, GetComponent<Camera>().farClipPlane);
     }
 
     public virtual Matrix4x4 PerspectiveOffCenter(float left, float right, float bottom, float top, float near, float far)
@@ -276,9 +276,9 @@ public partial class s3dCameraSBS : MonoBehaviour
 
     public virtual void OnDrawGizmos()
     {
-        Vector3 gizmoLeft = this.transform.position + this.transform.TransformDirection(-this.interaxial / 2000f, 0, 0);
-        Vector3 gizmoRight = this.transform.position + this.transform.TransformDirection(this.interaxial / 2000f, 0, 0);
-        Vector3 gizmoTarget = this.transform.position + (this.transform.TransformDirection(Vector3.forward) * this.zeroPrlxDist);
+        Vector3 gizmoLeft = transform.position + transform.TransformDirection(-interaxial / 2000f, 0, 0);
+        Vector3 gizmoRight = transform.position + transform.TransformDirection(interaxial / 2000f, 0, 0);
+        Vector3 gizmoTarget = transform.position + (transform.TransformDirection(Vector3.forward) * zeroPrlxDist);
         Gizmos.color = new Color(1, 1, 1, 1);
         Gizmos.DrawLine(gizmoLeft, gizmoTarget);
         Gizmos.DrawLine(gizmoRight, gizmoTarget);
@@ -290,12 +290,12 @@ public partial class s3dCameraSBS : MonoBehaviour
 
     public s3dCameraSBS()// end s3dCameraSBS.js
     {
-        this.interaxial = 65;
-        this.zeroPrlxDist = 3f;
-        this.cameraSelect = cams_3D.LeftRight;
-        this.usePhoneMask = true;
-        this.leftViewRect = new Vector4(0, 0, 0.5f, 1);
-        this.rightViewRect = new Vector4(0.5f, 0, 1, 1);
+        interaxial = 65;
+        zeroPrlxDist = 3f;
+        cameraSelect = cams_3D.LeftRight;
+        usePhoneMask = true;
+        leftViewRect = new Vector4(0, 0, 0.5f, 1);
+        rightViewRect = new Vector4(0.5f, 0, 1, 1);
     }
 
 }

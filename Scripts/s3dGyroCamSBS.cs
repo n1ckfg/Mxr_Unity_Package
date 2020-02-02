@@ -43,34 +43,34 @@ public partial class s3dGyroCamSBS : MonoBehaviour
     public virtual void Awake()
     {
         // find the current parent of the camera's transform
-        Transform currentParent = this.transform.parent;
+        Transform currentParent = transform.parent;
         // instantiate a new transform
-        this.camParent = new GameObject("camParent");
+        camParent = new GameObject("camParent");
         // match the transform to the camera position
-        this.camParent.transform.position = this.transform.position;
+        camParent.transform.position = transform.position;
         // make the new transform the parent of the camera transform
-        this.transform.parent = this.camParent.transform;
+        transform.parent = camParent.transform;
         // instantiate a new transform
-        this.camGrandparent = new GameObject("camGrandParent");
+        camGrandparent = new GameObject("camGrandParent");
         // match the transform to the camera position
-        this.camGrandparent.transform.position = this.transform.position;
+        camGrandparent.transform.position = transform.position;
         // make the new transform the grandparent of the camera transform
-        this.camParent.transform.parent = this.camGrandparent.transform;
+        camParent.transform.parent = camGrandparent.transform;
         // make the original parent the great grandparent of the camera transform
-        this.camGrandparent.transform.parent = currentParent;
+        camGrandparent.transform.parent = currentParent;
         // check whether device supports gyroscope
         s3dGyroCamSBS.gyroBool = SystemInfo.supportsGyroscope;
         if (s3dGyroCamSBS.gyroBool)
         {
-            this.prevScreenOrientation = Screen.orientation;
-            this.gyro = Input.gyro;
-            this.gyro.enabled = true;
-            if (this.setZeroToNorth)
+            prevScreenOrientation = Screen.orientation;
+            gyro = Input.gyro;
+            gyro.enabled = true;
+            if (setZeroToNorth)
             {
-                this.compass = Input.compass;
-                this.compass.enabled = true;
+                compass = Input.compass;
+                compass.enabled = true;
             }
-            this.fixScreenOrientation();
+            fixScreenOrientation();
         }
         Screen.sleepTimeout = SleepTimeout.NeverSleep;
     }
@@ -79,58 +79,58 @@ public partial class s3dGyroCamSBS : MonoBehaviour
     {
         if (s3dGyroCamSBS.gyroBool)
         {
-            if (this.setZeroToNorth)
+            if (setZeroToNorth)
             {
-                this.StartCoroutine(this.turnToFaceNorth());
+                StartCoroutine(turnToFaceNorth());
             }
         }
-        this.screenSize.x = Screen.width;
-        this.screenSize.y = Screen.height;
+        screenSize.x = Screen.width;
+        screenSize.y = Screen.height;
     }
 
     public virtual IEnumerator turnToFaceNorth()
     {
         yield return new WaitForSeconds(1);
-        this.heading = Input.compass.magneticHeading;
+        heading = Input.compass.magneticHeading;
     }
 
     public virtual void Update()
     {
         if (s3dGyroCamSBS.gyroBool)
         {
-            this.transform.localRotation = this.quatMap * this.quatMult;
+            transform.localRotation = quatMap * quatMult;
         }
-        if (this.touchRotatesHeading)
+        if (touchRotatesHeading)
         {
-            this.GetTouchMouseInput();
+            GetTouchMouseInput();
         }
 
         {
-            float _5 = this.heading;
-            Vector3 _6 = this.camGrandparent.transform.localEulerAngles;
+            float _5 = heading;
+            Vector3 _6 = camGrandparent.transform.localEulerAngles;
             _6.y = _5;
-            this.camGrandparent.transform.localEulerAngles = _6;
+            camGrandparent.transform.localEulerAngles = _6;
         }
 
         {
             float _7 = // only update pitch if in Unity Editor (on device, pitch is handled by gyroscope)
-            this.Pitch;
-            Vector3 _8 = this.transform.localEulerAngles;
+            Pitch;
+            Vector3 _8 = transform.localEulerAngles;
             _8.x = _7;
-            this.transform.localEulerAngles = _8;
+            transform.localEulerAngles = _8;
         }
     }
 
     public virtual void checkAutoRotation()
     {
         // check if Screen.orientation has changed
-        if (this.prevScreenOrientation != Screen.orientation)
+        if (prevScreenOrientation != Screen.orientation)
         {
             // fix gyroscope orientation settings
-            this.fixScreenOrientation();
+            fixScreenOrientation();
         }
         // also need to fix camera aspect
-        this.prevScreenOrientation = Screen.orientation;
+        prevScreenOrientation = Screen.orientation;
     }
 
     public virtual void fixScreenOrientation()
@@ -142,28 +142,28 @@ public partial class s3dGyroCamSBS : MonoBehaviour
         Vector2 delta = default(Vector2);
         if (Input.GetMouseButtonDown(0))
         {
-            this.mouseStartPoint = Input.mousePosition;
-            this.headingAtTouchStart = this.heading;
-            this.pitchAtTouchStart = this.Pitch;
+            mouseStartPoint = Input.mousePosition;
+            headingAtTouchStart = heading;
+            pitchAtTouchStart = Pitch;
         }
         else
         {
             if (Input.GetMouseButton(0))
             {
                 Vector3 mousePos = Input.mousePosition;
-                delta.x = (mousePos.x - this.mouseStartPoint.x) / this.screenSize.x;
-                this.heading = this.headingAtTouchStart + (delta.x * 100);
-                this.heading = this.heading % 360;
-                delta.y = (mousePos.y - this.mouseStartPoint.y) / this.screenSize.y;
-                this.Pitch = this.pitchAtTouchStart + (delta.y * -100);
-                this.Pitch = Mathf.Clamp(this.Pitch % 360, -60, 60);
+                delta.x = (mousePos.x - mouseStartPoint.x) / screenSize.x;
+                heading = headingAtTouchStart + (delta.x * 100);
+                heading = heading % 360;
+                delta.y = (mousePos.y - mouseStartPoint.y) / screenSize.y;
+                Pitch = pitchAtTouchStart + (delta.y * -100);
+                Pitch = Mathf.Clamp(Pitch % 360, -60, 60);
             }
         }
     }
 
     public s3dGyroCamSBS()// end s3dGyroCamSBS.js
     {
-        this.setZeroToNorth = true;
+        setZeroToNorth = true;
     }
 
 }

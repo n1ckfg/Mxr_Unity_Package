@@ -17,13 +17,13 @@ public class s3dGyroCamSBSEditor : Editor
     public override void OnInspectorGUI()
     {
         EditorGUILayout.BeginVertical("box", new GUILayoutOption[] {});
-        this.target.touchRotatesHeading = EditorGUILayout.Toggle(new GUIContent("Touch Rotates Heading", "Horizontal Swipe Rotates Heading"), this.target.touchRotatesHeading, new GUILayoutOption[] {});
-        this.target.setZeroToNorth = EditorGUILayout.Toggle(new GUIContent("Set Zero Heading to North", "Face Compass North on Startup"), this.target.setZeroToNorth, new GUILayoutOption[] {});
-        this.target.checkForAutoRotation = EditorGUILayout.Toggle(new GUIContent("Check For Auto Rotation", "Leave off unless Auto Rotation is on"), this.target.checkForAutoRotation, new GUILayoutOption[] {});
+        target.touchRotatesHeading = EditorGUILayout.Toggle(new GUIContent("Touch Rotates Heading", "Horizontal Swipe Rotates Heading"), target.touchRotatesHeading, new GUILayoutOption[] {});
+        target.setZeroToNorth = EditorGUILayout.Toggle(new GUIContent("Set Zero Heading to North", "Face Compass North on Startup"), target.setZeroToNorth, new GUILayoutOption[] {});
+        target.checkForAutoRotation = EditorGUILayout.Toggle(new GUIContent("Check For Auto Rotation", "Leave off unless Auto Rotation is on"), target.checkForAutoRotation, new GUILayoutOption[] {});
         EditorGUILayout.EndVertical();
         if (GUI.changed)
         {
-            EditorUtility.SetDirty(this.target);
+            EditorUtility.SetDirty(target);
         }
     }
 

@@ -75,25 +75,25 @@ public class MxrLeepHmd : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		if (this.isStereo)
+		if (isStereo)
 		{
 	        Transform camLeftTransform;
 	        Transform camRightTransform;
-	        camLeftTransform  = this.transform.Find("LeftEyeCamera");
-	        camRightTransform = this.transform.Find("RightEyeCamera");
+	        camLeftTransform  = transform.Find("LeftEyeCamera");
+	        camRightTransform = transform.Find("RightEyeCamera");
 	
-	        this.cameraLeft = camLeftTransform.GetComponent<Camera>();
-	        this.cameraRight = camRightTransform.GetComponent<Camera>();
+	        cameraLeft = camLeftTransform.GetComponent<Camera>();
+	        cameraRight = camRightTransform.GetComponent<Camera>();
 		}
 		else
 		{
 	        Transform camMonoTransform;
-	        camMonoTransform  = this.transform.Find("MonoCamera");	
-	        this.cameraMono = camMonoTransform.GetComponent<Camera>();
+	        camMonoTransform  = transform.Find("MonoCamera");	
+	        cameraMono = camMonoTransform.GetComponent<Camera>();
 		}
 
-        this.lEyeMesh = leepRenderer.transform.Find("LeftEyeMesh");
-        this.rEyeMesh = leepRenderer.transform.Find("RightEyeMesh");
+        lEyeMesh = leepRenderer.transform.Find("LeftEyeMesh");
+        rEyeMesh = leepRenderer.transform.Find("RightEyeMesh");
 
         //TP: Read the config file
         if (File.Exists("hmd-config.cfg")) {
@@ -112,7 +112,7 @@ public class MxrLeepHmd : MonoBehaviour {
                 if (argument[0] == "interaxial") {
                     canConvert = double.TryParse(argument[1].Trim(), out argValue);
                     if (canConvert)
-                        this.interaxialDistance = (float)argValue;
+                        interaxialDistance = (float)argValue;
                 }
                 else if (argument[0] == "verticalFOV") {
                     canConvert = double.TryParse(argument[1].Trim(), out argValue);
@@ -122,16 +122,16 @@ public class MxrLeepHmd : MonoBehaviour {
                 else if (argument[0] == "aspectRatio") {
                     canConvert = double.TryParse(argument[1].Trim(), out argValue);
                     if (canConvert)
-                        this.aspectRatio = (float)argValue;
+                        aspectRatio = (float)argValue;
                 }
                 else if (argument[0] == "preDistortK") {
                     canConvert = double.TryParse(argument[1].Trim(), out argValue);
                     if (canConvert) {
-                        if (this.leepRenderer != null) {
-                            this.leepRenderer.transform.Find("RightEyeMesh").GetComponent<MxrPredistortionMesh>().PreDistortK = (float)argValue;
-                            this.leepRenderer.transform.Find("RightEyeMesh").GetComponent<MxrPredistortionMesh>().RebuildMesh();
-                            this.leepRenderer.transform.Find("LeftEyeMesh").GetComponent<MxrPredistortionMesh>().PreDistortK = (float)argValue;
-                            this.leepRenderer.transform.Find("LeftEyeMesh").GetComponent<MxrPredistortionMesh>().RebuildMesh();
+                        if (leepRenderer != null) {
+                            leepRenderer.transform.Find("RightEyeMesh").GetComponent<MxrPredistortionMesh>().PreDistortK = (float)argValue;
+                            leepRenderer.transform.Find("RightEyeMesh").GetComponent<MxrPredistortionMesh>().RebuildMesh();
+                            leepRenderer.transform.Find("LeftEyeMesh").GetComponent<MxrPredistortionMesh>().PreDistortK = (float)argValue;
+                            leepRenderer.transform.Find("LeftEyeMesh").GetComponent<MxrPredistortionMesh>().RebuildMesh();
                         }
                         else {
                             Debug.LogError("Assign a LEEPrenderer to the LEEPrenderer variable in the Inspector!");
@@ -142,23 +142,23 @@ public class MxrLeepHmd : MonoBehaviour {
         }
 
         //setup screen
-        if (this.fullScreen) {
-            Screen.SetResolution(this.resolutionHor, this.resolutionVert, true);
+        if (fullScreen) {
+            Screen.SetResolution(resolutionHor, resolutionVert, true);
             Screen.fullScreen = true;
         }
 
         //set up clip planes
 		if (isStereo)
 		{
-            this.cameraLeft.GetComponent<Camera>().near = this.nearClipPlane;
-            this.cameraLeft.GetComponent<Camera>().far = this.farClipPlane;
-            this.cameraRight.GetComponent<Camera>().near = this.nearClipPlane;
-            this.cameraRight.GetComponent<Camera>().far = this.farClipPlane;
+            cameraLeft.GetComponent<Camera>().near = nearClipPlane;
+            cameraLeft.GetComponent<Camera>().far = farClipPlane;
+            cameraRight.GetComponent<Camera>().near = nearClipPlane;
+            cameraRight.GetComponent<Camera>().far = farClipPlane;
 		}
 		else
 		{
-            this.cameraMono.GetComponent<Camera>().near = this.nearClipPlane;
-            this.cameraMono.GetComponent<Camera>().far = this.farClipPlane;
+            cameraMono.GetComponent<Camera>().near = nearClipPlane;
+            cameraMono.GetComponent<Camera>().far = farClipPlane;
 		}
 	}
 	
@@ -168,11 +168,11 @@ public class MxrLeepHmd : MonoBehaviour {
         //TP: You can move this line to the Start method
         //TP: if you know the values of verticalFOV, aspectRatio, and interaxial
         //TP: will not change during runtime.
-        this.UpdateCameraSettings();
+        UpdateCameraSettings();
 
         //TP: Display the predistortion values to the screen
         if (Input.GetKeyDown(KeyCode.F1)) {
-            this.displayValues = !this.displayValues;
+            displayValues = !displayValues;
         }
 
         //KeyboardAdjust(); //TP: Uncomment this line if you need hotkeys to adjust size and position of view ports
@@ -201,15 +201,15 @@ public class MxrLeepHmd : MonoBehaviour {
         //}
         if (Input.GetKeyDown(KeyCode.PageUp))
         {
-            this.interaxialDistance += 0.001f;
+            interaxialDistance += 0.001f;
         }
         else if (Input.GetKeyDown(KeyCode.PageDown))
         {
-            this.interaxialDistance -= 0.001f;
+            interaxialDistance -= 0.001f;
         }
 
-        Vector3 rEyeMeshPos = this.rEyeMesh.localPosition;
-        Vector3 lEyeMeshPos = this.lEyeMesh.localPosition;
+        Vector3 rEyeMeshPos = rEyeMesh.localPosition;
+        Vector3 lEyeMeshPos = lEyeMesh.localPosition;
         float delta = 0.0010f;
 
         if (Input.GetKeyDown(KeyCode.A))
@@ -248,52 +248,52 @@ public class MxrLeepHmd : MonoBehaviour {
 
         if (Input.GetKeyDown(KeyCode.Insert))
         {
-            this.rEyeMesh.GetComponent<MxrPredistortionMesh>().sizeX += 0.025f;
-            this.rEyeMesh.GetComponent<MxrPredistortionMesh>().sizeY += 0.025f;
-            this.lEyeMesh.GetComponent<MxrPredistortionMesh>().sizeX += 0.025f;
-            this.lEyeMesh.GetComponent<MxrPredistortionMesh>().sizeY += 0.025f;
-            this.rEyeMesh.GetComponent<MxrPredistortionMesh>().RebuildMesh();
-            this.lEyeMesh.GetComponent<MxrPredistortionMesh>().RebuildMesh();
+            rEyeMesh.GetComponent<MxrPredistortionMesh>().sizeX += 0.025f;
+            rEyeMesh.GetComponent<MxrPredistortionMesh>().sizeY += 0.025f;
+            lEyeMesh.GetComponent<MxrPredistortionMesh>().sizeX += 0.025f;
+            lEyeMesh.GetComponent<MxrPredistortionMesh>().sizeY += 0.025f;
+            rEyeMesh.GetComponent<MxrPredistortionMesh>().RebuildMesh();
+            lEyeMesh.GetComponent<MxrPredistortionMesh>().RebuildMesh();
         }
         else if (Input.GetKeyDown(KeyCode.Delete))
         {
-            this.rEyeMesh.GetComponent<MxrPredistortionMesh>().sizeX -= 0.025f;
-            this.rEyeMesh.GetComponent<MxrPredistortionMesh>().sizeY -= 0.025f;
-            this.lEyeMesh.GetComponent<MxrPredistortionMesh>().sizeX -= 0.025f;
-            this.lEyeMesh.GetComponent<MxrPredistortionMesh>().sizeY -= 0.025f;
-            this.rEyeMesh.GetComponent<MxrPredistortionMesh>().RebuildMesh();
-            this.lEyeMesh.GetComponent<MxrPredistortionMesh>().RebuildMesh();
+            rEyeMesh.GetComponent<MxrPredistortionMesh>().sizeX -= 0.025f;
+            rEyeMesh.GetComponent<MxrPredistortionMesh>().sizeY -= 0.025f;
+            lEyeMesh.GetComponent<MxrPredistortionMesh>().sizeX -= 0.025f;
+            lEyeMesh.GetComponent<MxrPredistortionMesh>().sizeY -= 0.025f;
+            rEyeMesh.GetComponent<MxrPredistortionMesh>().RebuildMesh();
+            lEyeMesh.GetComponent<MxrPredistortionMesh>().RebuildMesh();
         }
 
-        this.rEyeMesh.localPosition = rEyeMeshPos;
-        this.lEyeMesh.localPosition = lEyeMeshPos;
+        rEyeMesh.localPosition = rEyeMeshPos;
+        lEyeMesh.localPosition = lEyeMeshPos;
     }
 
     private void UpdateCameraSettings() {
         if (isStereo) {
             //set up FOV
-            this.cameraLeft.GetComponent<Camera>().fieldOfView = verticalFOV;
-            this.cameraRight.GetComponent<Camera>().fieldOfView = verticalFOV;
+            cameraLeft.GetComponent<Camera>().fieldOfView = verticalFOV;
+            cameraRight.GetComponent<Camera>().fieldOfView = verticalFOV;
 
             //aspectRatio = Mathf.Tan((horizontalFOV * Mathf.Deg2Rad) / 2) / Mathf.Tan((verticalFOV * Mathf.Deg2Rad) / 2);
 
             //set up aspect ratio
-            this.cameraLeft.aspect = this.aspectRatio;
-            this.cameraRight.aspect = this.aspectRatio;
+            cameraLeft.aspect = aspectRatio;
+            cameraRight.aspect = aspectRatio;
 
             //set up eye separation
-            this.cameraLeft.transform.localPosition = new Vector3(-this.interaxialDistance * 0.5f, 0.0f, 0.0f);
-            this.cameraRight.transform.localPosition = new Vector3(this.interaxialDistance * 0.5f, 0.0f, 0.0f);
+            cameraLeft.transform.localPosition = new Vector3(-interaxialDistance * 0.5f, 0.0f, 0.0f);
+            cameraRight.transform.localPosition = new Vector3(interaxialDistance * 0.5f, 0.0f, 0.0f);
         }
         else {
             //set up FOV
-            this.cameraMono.GetComponent<Camera>().fieldOfView = verticalFOV;
+            cameraMono.GetComponent<Camera>().fieldOfView = verticalFOV;
 
             //set up aspect ratio
-            this.cameraMono.aspect = this.aspectRatio;
+            cameraMono.aspect = aspectRatio;
 
             //set up eye separation --> none for mono
-            this.cameraMono.transform.localPosition = new Vector3(0.0f, 0.0f, 0.0f);
+            cameraMono.transform.localPosition = new Vector3(0.0f, 0.0f, 0.0f);
         }
     }
 
