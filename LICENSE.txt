@@ -1,0 +1,123 @@
+MxR Hardware and Software License Agreement
+THIS AGREEMENT is between the UNIVERSITY OF SOUTHERN CALIFORNIA, (hereinafter USC) a California nonprofit corporation with its principal place of business at University Park, Los Angeles, California 90089, and Licensee.
+WHEREAS, USC is the owner of certain computer programs, hardware designs and supporting documentation arising from research funded in part by the U.S. Government; and
+WHEREAS, the computer programs, hardware designs and supporting documentation are protected, where applicable, by patents, registered copyrights, and other protections afforded intellectual property around the world; and 
+WHEREAS, Licensee desires to license the computer programs, hardware designs and supporting documentation.
+NOW, THEREFORE, in view of the above premises and in consideration of the terms and conditions set forth below, USC and Licensee agree as follows:
+1. DEFINITIONS
+“Commercial Use” means the use of any Licensed Work by Licensee for direct or indirect financial, commercial or strategic gain or advantage, including without limitation: (a) bundling or integrating any software with any hardware product or on another software product for transfer, sale or license to a third party (even if distributing the software on separate media and not charging for the Licensed Work, whether it be the software portion or the hardware portion); (b)  providing customers with a link to a Licensed Work or a copy of a Licensed Work for use with another hardware or software product purchased by that customer; or (c) use in connection with performance of services for which the Licensee is compensated.
+“Contribution” means any design or work of authorship, including the original version of any Licensed Work and any modifications or additions to that Licensed Work or Derivative Works thereof, that is intentionally submitted to USC for inclusion in the Licensed Work by the Rights owner or by an individual or Legal Entity authorized to submit on behalf of the Rights owner. For the purposes of this definition, “submitted” means any form of electronic, verbal, or written communication sent to USC or its representatives, including but not limited to communication on electronic mailing lists, source code control systems, and issue tracking systems that are managed by, or on behalf of, the USC for the purpose of discussing and improving a Licensed Work, but excluding communication that is conspicuously marked or otherwise designated in writing by the Rights owner as “Not a Contribution.”
+“Contributor” shall mean any individual or Legal Entity on behalf of whom a Contribution has been received by USC and subsequently incorporated within a Licensed Work.
+ “Derivative Works” means any improvement to or other derivative works of, including any work in Source or Object form, that is based on (or derived from) the Licensed Works and for which the editorial revisions, annotations, elaborations, or other modifications represent, as a whole, an original work of authorship.  For the purposes of this License, Derivative Works shall not include works that remain separable from or merely link (or bind by name) or physically connect to or interoperate with the interfaces of the Licensed Works and the Derivative Works thereof. 
+“Documentation” shall mean all manuals, user documentation, and other related materials pertaining to the Licensed Works that are made available to Licensee in connection with the Licensed Works.
+“Do-It-Yourself Site” means that certain connected group of pages on the Internet maintained by the University of Southern California’s Institute for Creative Technologies Mixed Reality Lab and labeled the “Do-It-Yourself”, or DIY pages, tabs or sections.
+"Effective Date" means the date when the Licensee first downloads the Licensed Works, which represents acceptance of the terms of this Agreement.
+“Executable Code" means machine language or other files which cause a computer to perform indicated tasks according to encoded instructions and which are not Source Code.
+“Forum” means the site on the internet maintained by the University of Southern California’s Institute for Creative Technologies Mixed Reality Lab to facilitate the use and communication by a number of people in the form of posted messages, sharing of information and making Contributions.  
+"Licensed Works" means the works of authorship, whether in Source form or other Object form, together with the applicable Documentation, made available on the Do-It-Yourself Site and referred to on the Do-It-Yourself Site as the MxR Hardware and Software.
+"Licensee" means the individual, nonprofit educational or research institution or U.S. governmental research entity bound by the terms of this Agreement and identified by electronic mail address entered into the Licensee identification fields upon acceptance of this License.
+“Object” form means any form resulting from mechanical transformation or translation of a Source form including but not limited to compiled object code, generated documentation, the instantiation of a hardware design and conversions to other media types, including intermediate forms such as bytecodes, FGPA bitstreams and artwork. 
+“Rights” means copyright and any similar right including design right (whether registered or unregistered) and database rights (but excluding patents and trademarks).
+"Source" form means the preferred form for making modifications, including but not limited to source code, net lists, board layouts, CAD files, stl files, drawings (including 3-D drawings), assembly instructions, documentation source, and configuration files. 
+2. LICENSE GRANT
+2.1. Subject to the terms and conditions, as set forth in this Agreement, USC hereby grants to Licensee under USC’s intellectual property rights in the Licensed Works, a nontransferable, non-exclusive license, for non-revenue generating academic, research, experimental and personal use only (and specifically excluding Commercial Use), to (a) install, use, display and perform the Licensed Works; (b) use and modify the Licensed Works to create Derivative Works, subject to Sections 4.2 and 4.4; and (c) use the Documentation, if any, solely in connection with Licensee’s authorized use of the Licensed Works. To the extent any Licensed Work or any Contribution is the subject of a patent, the license granted herein includes a nontransferable, non-exclusive license to use the applicable patent rights solely as part of the Licensee’s permitted use of the Licensed Works and solely for non-revenue generating academic, research, experimental and personal use only (and specifically excluding Commercial Use).  No third-party-owned software is licensed or provided pursuant to this Agreement. 
+
+2.2. No services, support, updates, upgrades, modifications, error corrections nor other assistance is provided by USC for the Licensed Works.  The Licensed Works are provided “As-is” without warranty of any kind, including any warranty or representation that use of the Licensed Works will produce any specific results or perform any specific functions. Licensee assumes the entire risk of using any or all of the Licensed Works.
+
+3. DELIVERY AND INSTALLATION
+3.1. Licensee will be solely responsible for installation of any software included in the Licensed Works on its equipment.
+
+3.2. To the extent installation and execution of any software included in the Licensed Works requires the use of third-party software, Licensee is solely responsible for its acquisition, installation, and use of all such third-party software, including Licensee’s compliance with the terms and conditions of all licenses covering such third party software.  
+
+4. RESTRICTIONS AND COVENANTS
+4.1. The Licensee agrees not to (i) knowingly duplicate, provide, or otherwise make available the Licensed Works or any other material provided for use with the Licensed Works, including but not limited to documentation, and the Licensed Works, in any form, to any person, party, or entity except in accordance with Section 5, REDISTRIBUTION, below, (ii) use the Licensed Works (or any portion thereof) or Documentation for Commercial Use or for any other use except as described in Section 2; or (iii) remove any product identification, copyright, proprietary notices or labels from the Licensed Works (or any portion thereof) or Documentation.  This Agreement confers no rights upon Licensee except those expressly granted herein.
+
+4.2. Licensee hereby agrees that its use of any Derivative Works will be subject to the same terms, conditions, restrictions and limitations on use imposed on the Licensed Works (or any portion thereof) under this Agreement.
+
+5. CONTRIBUTIONS; DERIVATIVE WORKS
+5.1. Unless Licensee explicitly states otherwise, any Contribution intentionally submitted for inclusion in the Licensed Works by Licensee to USC shall, whether included in the Licensed Works or made available by a Contributor on the Forum, be licensed under the terms and conditions of this License for Licensed Works, without any additional terms or conditions.  For the sake of clarity, if Licensee submits a Contribution, Licensee hereby agrees that such Contributions will be deemed a Licensed Work for the purposes of this Agreement and Licensee hereby grants USC and all other Licensees, a worldwide, non-exclusive, royalty-free license to reproduce, prepare derivative works of, publicly display, publicly perform, sublicense and distribute such Contributions for non-commercial, non-revenue generating academic, research, experimental and personal uses only.  Further, Licensee hereby grants USC and all other Licensees, a worldwide, non-exclusive, royalty-free patent license to make, have made, use, and import, for non-commercial, non-revenue generating academic, research, experimental and personal uses only, such Contributions under those patent claims licensable by Licensee that are necessarily infringed by Contributions or Derivative Works.  Notwithstanding the above, nothing herein shall supersede or modify the terms of any separate license agreement Licensee may have executed with USC regarding such Contributions.
+
+5.2. Licensee, may, in its discretion, provide a copy of Derivative Works to USC.  If Licensee intends such works to be for USC’s use only and not a Contribution, Licensee must mark such Derivative Works as “Not a Contribution.”   Unless such Derivative Works are clearly marked as “Not A Contribution” such Derivative Works will be deemed a Contribution.  If Licensee provides USC a Derivative Work, Licensee hereby grants USC a worldwide, non-exclusive, royalty-free license to reproduce, prepare derivative works of, publicly display, publicly perform, sublicense and distribute such Derivative Work for non-commercial, non-revenue generating academic, research, experimental and personal uses only.  Further, Licensee hereby grants USC a worldwide, non-exclusive, royalty-free patent license to make, have made, use, and import, for non-commercial, non-revenue generating academic, research, experimental and personal uses only, such Derivative Works under those patent claims licensable by Licensee that are necessarily infringed by the Derivative Works. 
+
+6.  REDISTRIBUTION
+6.1. Licensee may reproduce and distribute copies of the Licensed Works or Derivative Works in any medium, with or without modifications, and in Source or Object form, provided that Licensee meets the following conditions:
+
+6.1.1. Licensee must give any other recipients of the Licensed Works or Derivative Works a copy of this License and they must agree to be bound by its terms and conditions as a Licensee hereunder; 
+
+6.1.2. Licensee must cause any modified files to carry prominent notices stating that Licensee changed the files; and 
+
+6.1.3. If Licensee posts or display the Licensed Works on the World Wide Web, Licensee must include a hyperlink back to the “Do-It-Yourself Site.
+
+6.1.4. Licensee must retain, in the Source form of any Derivative Works that Licensee distributes, all copyright, patent, trademark, and attribution notices from the Source form of the Licensed Work, excluding those notices that do not pertain to any part of the Derivative Works; and
+
+6.1.5. Unless USC expressly notifies Licensee otherwise, Licensee must maintain and place on any copy of any Licensed Work or Derivative Works that it reproduces all notices as are authorized and/or required hereunder.  Licensee shall include a copy of this Agreement and the following notice on each copy of any Licensed Work or Derivative Work.  Such license and notice shall be embedded in each copy of Licensed Work software, in the video screen display, on the physical medium embodying any Licensed Work copy or Derivative Work:
+
+Copyright © 2011-2013, The University of Southern California.  All rights reserved.
+
+UNIVERSITY EXPRESSLY DISCLAIMS ANY AND ALL WARRANTIES CONCERNING THIS SOFTWARE, HARDWARE AND DOCUMENTATION, INCLUDING ANY WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE, NON-INFRINGEMENT AND WARRANTIES OF PERFORMANCE, AND ANY WARRANTY THAT MIGHT OTHERWISE ARISE FROM COURSE OF DEALING OR USAGE OF TRADE.  NO WARRANTY IS EITHER EXPRESS OR IMPLIED WITH RESPECT TO THE USE OF THIS SOFTWARE, HARDWARE OR DOCUMENTATION.  Under no circumstances will University be liable for incidental, special, indirect, direct or consequential damages or loss of profits, interruption of business, or related expenses which may arise from use of the software, hardware or documentation, including but not limited to those resulting from defects in software, hardware and/or documentation or loss or inaccuracy of data of any kind. 
+
+6.2. Licensee may add its own attribution notices within Derivative Works that Licensee distributes, alongside or as an addendum to the above attribution, provided that such additional attribution notices cannot be construed as modifying the License. Licensee may add its own copyright statement to its modifications, provided its use, reproduction, and distribution of the Licensed Work otherwise complies with the conditions stated in this License.
+
+6.3. If USC notifies Licensee that it elects not to be attributed as the source of the Work, Licensee must remove any and all mention of University of Southern California, its Institute for Creative Technologies, its Mixed Reality Lab and any of its personnel, in its redistribution or other use of the Licensed Work.
+
+7. TERM AND TERMINATION
+7.1. Upon any material breach or default by Licensee, USC will have the right to terminate this Agreement and the rights and license granted hereunder by 10 days' written notice to Licensee. Such termination will become effective unless Licensee has cured any such breach or default prior to the expiration of the 10-day period. However, should Licensee breach any of the terms of Section 2 above, this Agreement will automatically terminate.
+
+7.2. Licensee may terminate this Agreement upon 30 days' written notice to USC.
+
+7.3. Upon termination of this Agreement for any reason, nothing herein will be construed to release either party of any obligation which matured prior to the date of such termination.
+
+7.4. The following will survive any termination:
+      6.4.1 Any cause of action or claim of Licensee or USC, accrued or to accrue, because of any breach or default by the other party.
+      6.4.2 The provisions of Paragraphs 7, 8 and 9.
+7.5. The Licensee will do the following upon termination
+      6.5.1 delete the Licensed Works and Derivative Works from all equipment on which they have been installed; upon USC's written consent, Licensee may retain one copy of the Licensed Works and Derivative Works for archive purposes only;
+      6.5.3 erase all copies of the Licensed Works and Derivative Works from any storage media before discarding the storage media;
+      6.5.4 within one month after the termination of this Agreement, certify in writing to USC that, to the best of the Licensee's knowledge, all copies of the Licensed Works and Derivative Works have been returned or destroyed.
+8. DISCLAIMER OF WARRANTIES AND DAMAGES; LIMITATION OF LIABILITY
+8.1. DISCLAIMER.  THE LICENSED WORKS, INCLUDING ANY PATENT RIGHTS THEREIN THAT ARE EXPRESSLY INCLUDED IN THIS LICENSE, AND THE FORUM ARE FURNISHED TO LICENSEE AS-IS. USC MAKES NO REPRESENTATIONS OR WARRANTIES, EXPRESS OR IMPLIED. BY WAY OF EXAMPLE, BUT NOT LIMITATION, USC MAKES NO REPRESENTATIONS OR WARRANTIES OF MERCHANTABILITY OR FITNESS FOR ANY PARTICULAR PURPOSE, OR THAT THE USE OF THE LICENSED WORKS COMPONENTS, THE PATENT RIGHTS OR DOCUMENTATION WILL NOT INFRINGE ANY PATENTS, COPYRIGHTS, TRADEMARKS OR OTHER RIGHTS.
+ 
+8.2. LIMITATION OF LIABILITY.  USC WILL NOT BE HELD LIABLE FOR ANY LIABILITY NOR FOR ANY DIRECT, INDIRECT, INCIDENTAL, EXEMPLARY OR CONSEQUENTIAL DAMAGES OF ANY KIND, INCLUDING DAMAGES FOR LOST GOODWILL, LOST PROFITS, LOST BUSINESS OR OTHER INDIRECT ECONOMIC DAMAGES, WHETHER SUCH CLAIM IS BASED ON CONTRACT, NEGLIGENCE, TORT (INCLUDING STRICT LIABILITY) OR OTHER LEGAL THEORY, WITH RESPECT TO ANY CLAIM BY LICENSEE OR ANY THIRD PARTY ON ACCOUNT OF OR ARISING FROM THIS AGREEMENT OR USE OF THE LICENSED WORKS OR PATENT RIGHTS, AND REGARDLESS OF WHETHER USC WAS ADVISED OR HAD REASON TO KNOW OF THE POSSIBILITY OF SUCH DAMAGES IN ADVANCE.
+
+9. INDEMNIFICATION
+9.1. Licensee will defend, indemnify and hold harmless USC and its trustees, officers, professional staff, employees and agents and their respective successors, heirs and assigns (the "Indemnitees"), against all liability, demand, damage, loss, or expense incurred by or imposed upon the Indemnitees or any one of them in connection with any claims, suits, actions, demands or judgments arising out of any theory of product liability (including but not limited to, actions in the form of tort, warrantee, or strict liability) for death, personal injury, illness, or property damage arising from Licensee's use or other disposition of the Licensed Works.
+
+9.2. Licensee agrees, at its own expense, to provide attorneys reasonably acceptable to USC to defend against any actions brought or filed against any Indemnitee with respect to the subject of indemnity contained herein, whether or not such actions are rightfully brought. To the extent that any proposed settlement directly affects USC, Licensee will obtain the approval of USC before finally agreeing to such settlement proposal, which consent will not be unreasonably withheld.
+
+10. MISCELLANEOUS
+10.1. Relationship of the Parties. Licensee and USC are independent contractors and Licensee is not an agent, partner, employee or joint venturer with USC.
+
+10.2. Headings. The headings used herein are intended solely for ease of reference, and are not intended to describe, construe or interpret this Agreement.
+
+10.3. Non Waiver. A waiver of any breach of any provision of this Agreement will not be construed as a continuing waiver of said breach or a waiver of any other breaches of the same or other provisions of this Agreement.
+
+10.4. Export. It is understood that USC is subject to United States laws and regulations controlling the export of technical data, computer software, laboratory prototypes and other commodities (such laws include the Arms Export Control Act, as amended and the Export Administration Act), and that its obligations hereunder are contingent on compliance with applicable United States export laws and regulations. The transfer of certain technical data and commodities by Licensee may require a license from the cognizant agency of the United States Government and/or written assurances by Licensee that Licensee will not export data or commodities to certain foreign countries without prior approval of such agency. USC neither represents that a license will not be required nor that, if required, it will be issued. Licensee will not engage in any activity in connection with this Agreement that is in violation of any applicable U.S. law.
+
+10.5. Assignment. Licensee may not assign or transfer this Agreement in whole or part to any third party without the prior written permission of USC. Such permission will be granted in USC's sole discretion.
+
+10.6. Attorney Fees. If any action in law or in equity is brought to enforce or interpret the provisions of this Agreement, the prevailing party is entitled to reasonable attorney's fees, which may be set by the court in the same or separate action for that purpose, in addition to any other relief to which the prevailing party may be entitled.
+
+10.7. Notice. Any notice or other communication pursuant to this Agreement will be sufficiently made or given on the date of mailing if sent to such party by a nationally recognized overnight courier service at the respective addresses given below. Licensee will promptly notify USC in writing of any change in address.
+      In the case of USC:
+USC Stevens Center for Innovation
+University of Southern California
+1150 S. Olive Street, Suite 2300
+Los Angeles, CA 90015
+Attn: Licensing Director
+      In the case of Licensee:
+To the electronic mail address entered into the Licensee identification
+fields upon acceptance of this License.
+10.8. Publications. Nothing in this Agreement will limit or prevent USC from publishing any information about the Licensed Works, Derivative Works or Contributions.
+
+10.9. Severability. If any provision of this Agreement is determined to be invalid or unenforceable under any controlling body of law, such invalidity or unenforceability will not in any way affect the validity of enforceability of the remaining provisions hereof.
+
+10.10. Governing Law and Venue. This Agreement will be deemed to be executed and to be performed in the State of California, and will be construed in accordance with the laws of the State of California as to all matters, including but not limited to matters of validity, construction, effect and performance. With respect to all disputes arising out of or related to this Agreement or the transactions contemplated hereunder, the parties hereby submit to the personam jurisdiction of the state and federal courts in Los Angeles, California.
+
+10.11. Entire Agreement. This Agreement constitutes the entire agreement between the parties concerning the subject matter hereof. No amendment of this Agreement will be binding on the parties unless mutually agreed to and executed in writing by each of the parties.
+Downloading or Using the Licensed Works signifies acceptance of the terms of this MxR Hardware and Software License Agreement for MxR Hardware and Software. If you do not agree to these terms, do not download or use the Licensed Works.
+
+
+
+
+
+
